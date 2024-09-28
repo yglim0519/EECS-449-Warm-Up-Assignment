@@ -25,7 +25,6 @@ def bootstrap_frontend(token: str) -> None:
             response = requests.post('http://localhost:8000/walker/interact', json={'message': prompt, 'session_id': '123'}, headers={'Authorization': f'Bearer {token}'})
             if response.status_code == 200:
                 response = response.json()
-                print(response)
                 st.write(response['reports'][0]['response'])
                 st.session_state.messages.append({'role': 'assistant', 'content': response['reports'][0]['response']})
 INSTANCE_URL = 'http://localhost:8000'
