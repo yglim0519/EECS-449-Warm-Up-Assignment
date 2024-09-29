@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import:py os;
 import:py from langchain_community.document_loaders {PyPDFDirectoryLoader}
 import:py from langchain_text_splitters {RecursiveCharacterTextSplitter}
@@ -6,13 +5,6 @@ import:py from langchain.schema.document {Document}
 import:py from langchain_community.embeddings.ollama {OllamaEmbeddings}
 import:py from langchain_community.vectorstores.chroma {Chroma}
 
-=======
-import:py from langchain_community.document_loaders {PyPDFDirectoryLoader};
-import:py from langchain_text_splitters {RecursiveCharacterTextSplitter};
-import:py from langchain.schema.document {Document};
-import:py from langchain_community.embeddings.ollama {OllamaEmbeddings};
-import:py from langchain_community.vectorstores.chroma {Chroma};
->>>>>>> fb79c329fecc862336b50d344592f4b92e7c3c5a
 
 obj RagEngine {
     has file_path: str = "docs";
@@ -30,14 +22,10 @@ obj RagEngine {
     }
 
     can split_documents(documents: list[Document]) {
-<<<<<<< HEAD
         text_splitter = RecursiveCharacterTextSplitter(chunk_size=800,
         chunk_overlap=80,
         length_function=len,
         is_separator_regex=False);
-=======
-        text_splitter = RecursiveCharacterTextSplitter(chunk_size=800, chunk_overlap=80);
->>>>>>> fb79c329fecc862336b50d344592f4b92e7c3c5a
         return text_splitter.split_documents(documents);
     }
 
@@ -46,7 +34,6 @@ obj RagEngine {
         return embeddings;
     }
 
-<<<<<<< HEAD
     can add_chunk_id(chunks: str) {
         last_page_id = None;
         current_chunk_index = 0;
@@ -103,25 +90,3 @@ obj RagEngine {
         return results;
     }
 }
-=======
-    can add_to_chroma(chunks: list[Document]) {
-        db = Chroma(persist_directory=self.chroma_path, embedding_function=self.get_embedding_function());
-        chunks_with_ids = self.add_chunk_id(chunks);
-        db.add_documents(chunks_with_ids);
-    }
-
-    can get_from_chroma(query: str, chunck_nos: int=5) {
-        db = Chroma(persist_directory=self.chroma_path, embedding_function=self.get_embedding_function());
-        return db.similarity_search_with_score(query, k=chunck_nos);
-    }
-
-    can add_chunk_id(chunks: list[Document]) {
-        # Assign chunk IDs based on source, page number, etc.
-        ...
-        return chunks;
-    }
-}
-
-
-
->>>>>>> fb79c329fecc862336b50d344592f4b92e7c3c5a

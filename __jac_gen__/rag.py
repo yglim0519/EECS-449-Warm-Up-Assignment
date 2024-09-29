@@ -52,11 +52,7 @@ class RagEngine(_Jac.Obj):
         embeddings = OllamaEmbeddings(model='nomic-embed-text')
         return embeddings
 
-<<<<<<< HEAD
     def add_chunk_id(self, chunks: str) -> None:
-=======
-    def add_chunk_id(self, chunks: list) -> None:
->>>>>>> fb79c329fecc862336b50d344592f4b92e7c3c5a
         last_page_id = None
         current_chunk_index = 0
         for chunk in chunks:
