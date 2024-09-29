@@ -61,7 +61,8 @@ node Session {
 
 enum ChatType {
     RAG : 'Need to use Retrievable information in specific documents to respond' = "RAG",
-    QA : 'Given context is enough for an answer' = "user_qa"
+    QA : 'Given context is enough for an answer' = "user_qa",
+    FAQ : 'Commonly asked questions stored in a knowledge base' = "faq"
 }
 
 node Router {
@@ -82,6 +83,7 @@ walker infer {
             router_node = here ++> Router();
             router_node ++> RagChat();
             router_node ++> QAChat();
+            router_node ++> FAQChat();
             visit router_node;
         }
     }
@@ -120,6 +122,22 @@ node QAChat :Chat: {
     }
 }
 
+node FAQChat :Chat: {
+    has chat_type: ChatType = ChatType.FAQ;
+
+    can respond with infer entry {
+        can 'Respond to message using chat_history as context and agent_role as the goal of the agent'
+        respond_with_llm(   message:'current message':str,
+                    agent_role:'role of the agent responding':str,
+                    context:'retirved context from documents':list
+                        ) -> 'response':str by llm();
+        faq_data = {
+            "What is your name?": "I am a chatbot created to assist with queries.",
+            "What is the weather like today?": "I cannot answer that right now, please check a weather service."
+        };
+        here.response = respond_with_llm(here.message, "You are a conversation agent designed to answer the frequently asked questions from the data", faq_data);
+    }
+}
 
 
 
