@@ -8,7 +8,7 @@ if _jac_typ.TYPE_CHECKING:
     from mtllm.llms import Ollama
 else:
     Ollama, = __jac_import__(target='mtllm.llms', base_path=__file__, lng='py', absorb=False, mdl_alias=None, items={'Ollama': None})
-llm = Ollama(model_name='phi3')
+llm = Ollama(model_name='mistral')
 if _jac_typ.TYPE_CHECKING:
     from rag import RagEngine
 else:

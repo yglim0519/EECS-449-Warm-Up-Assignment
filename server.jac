@@ -1,6 +1,6 @@
 import:py from mtllm.llms {Ollama}
 
-glob llm = Ollama(model_name='phi3');
+glob llm = Ollama(model_name='mistral');
 
 import:jac from rag {RagEngine}
 glob rag_engine:RagEngine = RagEngine();
